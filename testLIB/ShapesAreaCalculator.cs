@@ -59,7 +59,7 @@
     /// <param name="shapeName"></param>
     /// <param name="checkSquareness"></param>
     /// <returns></returns>
-        public static object Calculate(double a, double b, double c, string shapeName, string checkSquareness)
+        public static (double,string) Calculate(double a, double b, double c, string shapeName, string checkSquareness)
         {
             a = Math.Abs(a);
             b = Math.Abs(b);
@@ -68,10 +68,10 @@
             if (triangleCheck != "does not exist" && shapeName == "triangle" && checkSquareness == "yes")
             {
                 var squareValue = Calculate(a, b, c);
-                object result = new object[] {squareValue,triangleCheck};
+                var result = (square:squareValue,check:triangleCheck);
                 return result;
             }
-            else return new object[0];
+            else return default;
             //else throw new ArgumentException("xd");
         }
     /// <summary>
@@ -85,7 +85,7 @@
         {
             var list = new List<double> { a, b, c };
             list.Reverse();
-            if (list[0] - list[1] - list[2] > 0)
+            if (list[0] - list[1] - list[2] > 0 || a == 0 || b == 0 || c == 0)
                 return "does not exist";
             else if (Math.Pow(list[0], 2) == (Math.Pow(list[1], 2) + Math.Pow(list[2], 2)))
                 return "rectangular";

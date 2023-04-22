@@ -37,15 +37,21 @@ namespace TestLIB.Tests
             Assert.That(ShapesAreaCalculator.Calculate(a, b, c, d), Is.EqualTo(expectedResult));
         }
 
-        [TestCase(3, 4,5, new object[] {6, "rectangular"}, "triangle", "yes")]
-        [TestCase(1, 1.3, 1.3, new object[] { 0.6, "not rectangular" }, "triangle", "yes")]
-        [TestCase(-5, -5, 8, new object[] { 12, "not rectangular" }, "triangle", "yes")]
-        [TestCase(1, 4, 6, new object[0], "triangle", "yes")]
-        [TestCase(3, 4, 5, new object[0], "circle", "yes")]
-        [TestCase(3, 4, 5, new object[0], "triangle", "xd")]
-        public void TestTriangleAndSquareness(double a, double b, double c, object expectedResult, string d, string e)
+        [Test]
+        public void TestTriangleAndSquareness()
         {
-            Assert.That(ShapesAreaCalculator.Calculate(a,b,c,d,e), Is.EqualTo(expectedResult));
-        }    
+            var expectedResultCaseOne = (6, "rectangular");
+            var expectedResultCaseTwo = (0.6, "not rectangular");
+            var expectedResultCaseThree = (12, "not rectangular");
+            (double,string) expectedResultCaseFour = (0, null);
+            (double, string) expectedResultCaseFive = (0, null);
+            (double, string) expectedResultCaseSix = (0, null);
+            Assert.That(expectedResultCaseOne, Is.EqualTo(ShapesAreaCalculator.Calculate(3, 4,5, "triangle", "yes")));
+            Assert.That(expectedResultCaseTwo, Is.EqualTo(ShapesAreaCalculator.Calculate(1, 1.3, 1.3,  "triangle", "yes")));
+            Assert.That(expectedResultCaseThree, Is.EqualTo(ShapesAreaCalculator.Calculate(-5, -5, 8, "triangle", "yes")));
+            Assert.That(expectedResultCaseFour, Is.EqualTo(ShapesAreaCalculator.Calculate(1, 4, 6, "triangle", "yes")));
+            Assert.That(expectedResultCaseFive, Is.EqualTo(ShapesAreaCalculator.Calculate(3, 4, 5, "circle", "yes")));
+            Assert.That(expectedResultCaseSix, Is.EqualTo(ShapesAreaCalculator.Calculate(3, 4, 5, "triangle", "xd")));
+        }
     }
 }
